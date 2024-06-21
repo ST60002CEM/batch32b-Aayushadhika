@@ -1,5 +1,3 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sagun/features/auth/presentation/viewmodel/auth_view_model.dart';
@@ -18,6 +16,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
 
   final _gap = const SizedBox(height: 8);
   bool isObscure = true;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,6 +29,11 @@ class _LoginViewState extends ConsumerState<LoginView> {
                 padding: const EdgeInsets.all(8),
                 child: Column(
                   children: [
+                    Image.asset(
+                      'assets/images/same.jpg', // Make sure this path is correct
+                      height: 150, // Adjust the height according to your needs
+                    ),
+                    const SizedBox(height: 16), // Add some spacing between the image and text
                     const Text(
                       'Login',
                       style: TextStyle(
@@ -84,9 +88,9 @@ class _LoginViewState extends ConsumerState<LoginView> {
                           await ref
                               .read(authViewModelProvider.notifier)
                               .loginStudent(
-                                _usernameController.text,
-                                _passwordController.text,
-                              );
+                            _usernameController.text,
+                            _passwordController.text,
+                          );
                         }
                       },
                       child: const SizedBox(

@@ -2,7 +2,8 @@ import 'dart:io';
 
 import 'package:dartz/dartz.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:sagun/core/error/failure.dart';
+
+import 'package:sagun/core/failure/failure.dart';
 import 'package:sagun/features/auth/domain/entity/auth_entity.dart';
 import 'package:sagun/features/auth/domain/repository/auth_repository.dart';
 
@@ -15,16 +16,12 @@ class AuthUseCase {
 
   AuthUseCase(this._authRepository);
 
-  Future<Either<Faliure, String>> uploadProfilePicture(File file) async {
-    return await _authRepository.uploadProfilePicture(file);
+  Future<Either<Failure, bool>> registerUser(AuthEntity User) async {
+    return await _authRepository.registerUser(User);
   }
 
-  Future<Either<Faliure, bool>> registerStudent(AuthEntity student) async {
-    return await _authRepository.registerStudent(student);
-  }
-
-  Future<Either<Faliure, bool>> loginStudent(
+  Future<Either<Failure, bool>> loginUser(
       String username, String password) async {
-    return await _authRepository.loginStudent(username, password);
+    return await _authRepository.loginUser(username, password);
   }
 }

@@ -22,11 +22,8 @@ class AuthHiveModel {
   @HiveField(2)
   final String lname;
 
-  @HiveField(3)
-  final String phone;
-
   @HiveField(6)
-  final String username;
+  final String email;
 
   @HiveField(7)
   final String password;
@@ -36,8 +33,7 @@ class AuthHiveModel {
     String? studentId,
     required this.fname,
     required this.lname,
-    required this.phone,
-    required this.username,
+    required this.email,
     required this.password,
   }) : studentId = studentId ?? const Uuid().v4();
 
@@ -47,8 +43,7 @@ class AuthHiveModel {
           studentId: '',
           fname: '',
           lname: '',
-          phone: '',
-          username: '',
+          email: '',
           password: '',
         );
 
@@ -57,8 +52,7 @@ class AuthHiveModel {
         id: studentId,
         fname: fname,
         lname: lname,
-        phone: phone,
-        username: username,
+        email: email,
         password: password,
       );
 
@@ -67,8 +61,7 @@ class AuthHiveModel {
         studentId: const Uuid().v4(),
         fname: entity.fname,
         lname: entity.lname,
-        phone: entity.phone,
-        username: entity.username,
+        email: entity.email,
         password: entity.password,
       );
 
@@ -78,6 +71,6 @@ class AuthHiveModel {
 
   @override
   String toString() {
-    return 'studentId: $studentId, fname: $fname, lname: $lname, phone: $phone, username: $username, password: $password';
+    return 'studentId: $studentId, fname: $fname, lname: $lname, gmail: gmail, password: $password';
   }
 }
