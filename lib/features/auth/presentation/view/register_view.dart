@@ -24,29 +24,13 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
     }
   }
 
-  File? _img;
-  Future _browseImage(WidgetRef ref, ImageSource imageSource) async {
-    try {
-      final image = await ImagePicker().pickImage(source: imageSource);
-      if (image != null) {
-        setState(() {
-          _img = File(image.path);
-        });
-      } else {
-        return;
-      }
-    } catch (e) {
-      debugPrint(e.toString());
-    }
-  }
-
   final _gap = const SizedBox(height: 8);
 
   final _key = GlobalKey<FormState>();
 
   final _fnameController = TextEditingController(text: 'Aaysus');
   final _lnameController = TextEditingController(text: 'Aaysus');
-  final _phoneController = TextEditingController(text: 'Aaysus');
+
   final _usernameController = TextEditingController(text: 'Aaysus');
   final _passwordController = TextEditingController(text: 'Aaysus');
 
@@ -67,57 +51,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
               key: _key,
               child: Column(
                 children: [
-                  InkWell(
-                    onTap: () {
-                      showModalBottomSheet(
-                        backgroundColor: Colors.grey[300],
-                        context: context,
-                        isScrollControlled: true,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(20),
-                          ),
-                        ),
-                        builder: (context) => Padding(
-                          padding: const EdgeInsets.all(20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  checkCameraPermission();
-                                  _browseImage(ref, ImageSource.camera);
-                                  Navigator.pop(context);
-                                  // Upload image it is not null
-                                },
-                                icon: const Icon(Icons.camera),
-                                label: const Text('Camera'),
-                              ),
-                              ElevatedButton.icon(
-                                onPressed: () {
-                                  _browseImage(ref, ImageSource.gallery);
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(Icons.image),
-                                label: const Text('Gallery'),
-                              ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                    child: SizedBox(
-                      height: 200,
-                      width: 200,
-                      child: CircleAvatar(
-                        radius: 50,
-                        backgroundImage: _img != null
-                            ? FileImage(_img!)
-                            : const AssetImage('assets/images/profile.png')
-                                as ImageProvider,
-                      ),
-                    ),
-                  ),
+
                   const SizedBox(height: 25),
                   TextFormField(
                     controller: _fnameController,
@@ -144,19 +78,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                       return null;
                     }),
                   ),
-                  _gap,
-                  TextFormField(
-                    controller: _phoneController,
-                    decoration: const InputDecoration(
-                      labelText: 'Phone No',
-                    ),
-                    validator: ((value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter phoneNo';
-                      }
-                      return null;
-                    }),
-                  ),
+
                   _gap,
                   TextFormField(
                     controller: _usernameController,
@@ -203,10 +125,7 @@ class _RegisterViewState extends ConsumerState<RegisterView> {
                           var student = AuthEntity(
                             fname: _fnameController.text,
                             lname: _lnameController.text,
-                            image:
-                                ref.read(authViewModelProvider).imageName ?? '',
-                            phone: _phoneController.text,
-                            username: _usernameController.text,
+                            email: _usernameController.text,
                             password: _passwordController.text,
                           );
 
